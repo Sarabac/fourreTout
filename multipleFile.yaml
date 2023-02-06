@@ -1,0 +1,18 @@
+- name: "dfgdfg"
+  hosts: localhost
+  tasks:
+    - name: "create grosDossier"
+      file:
+        path: grosDossier
+        state: directory
+        mode: '1777'
+    - name: "create fichiers"
+      file:
+        path: grosDossier/{{ item }}.log
+        state: touch
+        mode: "1777"
+      with_items:
+        - test1
+        - test2
+        - test3
+        - test4

@@ -1,0 +1,23 @@
+- name: "dfgdfg"
+  hosts: localhost
+  tasks:
+    - name: "create grosDossier"
+      file:
+        path: grosDossier
+        state: directory
+        mode: '1777'
+    - name: "create fichier 1"
+      file:
+        path: grosDossier/fichier1.log
+        state: touch
+        mode: "1777"
+    - name: "create fichier 2"
+      file:
+        path: grosDossier/fichier2.log
+        state: touch
+        mode: "1777"
+    - name: "create fichier 3"
+      file:
+        path: grosDossier/fichier3.log
+        state: touch
+        mode: "1777"
