@@ -1,0 +1,11 @@
+- name: "dfgdfg"
+  hosts: localhost
+  tasks:
+    - name: "create dossier"
+      file:
+        path: dossierReadme
+        state: directory
+    - name: "create grosDossier"
+      get_url:
+        url: https://raw.githubusercontent.com/rust-lang/rust/master/README.md
+        dest: dossierReadme/rust.md
