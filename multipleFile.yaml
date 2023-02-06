@@ -5,14 +5,10 @@
       file:
         path: grosDossier
         state: directory
-        mode: '1777'
     - name: "create fichiers"
       file:
-        path: grosDossier/{{ item }}.log
+        path: grosDossier/{{ item.name }}.{{ item.ext }}
         state: touch
-        mode: "1777"
       with_items:
-        - test1
-        - test2
-        - test3
-        - test4
+        - {name: test1, ext: log}
+        - {name: test2, ext: txt}
