@@ -1,0 +1,9 @@
+- name: "dfgdfg"
+  hosts: localhost
+  become: yes
+  tasks:
+    - name:
+      package:
+        name: supertux
+        state: present
+        use: auto
