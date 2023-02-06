@@ -5,3 +5,19 @@
       file:
         path: dossier
         state: directory
+    - name: create several files1
+      file:
+        path: dossier/file1.txt
+        state: touch
+    - name: create several files2
+      file:
+        path: dossier/file2.txt
+        state: touch
+    - name: create several files3
+      file:
+        path: dossier/file3.txt
+        state: touch
+    - name: create several files4
+      file:
+        path: dossier/file4.txt
+        state: touch

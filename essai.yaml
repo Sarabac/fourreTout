@@ -5,4 +5,8 @@
       file:
         path: log.log
         state: touch
-        
+    - name: create a directory
+      file:
+        path: directory
+        state: directory
+
