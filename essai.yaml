@@ -1,0 +1,8 @@
+- name: essai
+  hosts: localhost
+  tasks: 
+    - name: Create a new file
+      file:
+        path: log.log
+        state: touch
+        

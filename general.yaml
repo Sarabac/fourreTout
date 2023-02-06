@@ -1,0 +1,7 @@
+- name: essai
+  hosts: localhost
+  tasks: 
+    - name: create a directory
+      file:
+        path: dossier
+        state: directory
