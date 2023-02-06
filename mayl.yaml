@@ -1,0 +1,33 @@
+- name: My first yaml
+  hosts: localhost
+  tasks:
+    - name: Ping my hosts
+      ping:
+
+    - name: Print message
+      debug:
+        msg: Hello world of fourreTout
+
+    - file:
+        path: log.log
+        state: touch
+    
+    - file:
+        path: folder
+        state: directory
+    
+    - file:
+        path: folder/file1.txt
+        state: touch
+
+    - file:
+        path: folder/file2.txt
+        state: touch
+    
+    - file:
+        path: folder/file3.txt
+        state: touch
+    
+    - file:
+        path: folder/file4.txt
+        state: touch
