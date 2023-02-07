@@ -1,0 +1,32 @@
+- name: Déploiement du serveur sur plusieurs ports
+  hosts: localhost
+  vars:
+    SERVER_PORT: 8080
+    NUM_FILE: 1
+
+  tasks:
+
+    - name: Installation du package nodejs
+      package:
+        name: nodejs
+        state: present
+
+      become: true
+
+    - name: Téléchargement du fichier server.js
+      get_url:
+        url: https://raw.githubusercontent.com/Sarabac/fourreTout/benjamin/server.js
+        dest: ./server.js
+    
+    - name: Crée un dossier pour stocker les templates
+      file:
+        path: template
+        state: directory
+
+    - name: On crée les fichiers js à partir du template server.js
+      template:
+        src: ./server.js
+        dest: template/server{{ NUM_FILE }}.js
+    
+    - name: Lance le server de manière asynchrone
+      shell: node ./template/server{{ NUM_FILE }}.js &
