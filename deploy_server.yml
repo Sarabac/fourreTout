@@ -1,0 +1,36 @@
+- name: "deploiement de mon serveur sur localhsot"
+  hosts: local1:local2:local3:local4
+  
+  vars:
+    repo_url: "https://raw.githubusercontent.com/Sarabac/fourreTout/benjamin"  
+    appname: "server.js"
+
+  tasks:
+
+    - name: "installation nodejs"
+      package: 
+        name: nodejs
+        state: present
+
+    - name: "création répertoire {{ deploy_dir }}"
+      file: 
+        path: "{{ deploy_dir }}"
+        state: directory
+
+    - name: "récupération de l'application server"
+      get_url: 
+        url: "{{ repo_url }}/{{ appname }}"
+        dest: "{{ deploy_dir }}/{{ appname }}.j2"
+
+    - name: "installation de l'application server (template -> application)"
+      template:
+        src: "{{ deploy_dir }}/{{ appname }}.j2"
+        dest: "{{ deploy_dir }}/{{ appname }}"
+
+    - name: "démarrage de l'application server"
+      command:
+        chdir: "{{ deploy_dir }}"
+        cmd: "node {{ appname }}"
+      async: 10
+      poll: 0
+
