@@ -1,5 +1,25 @@
 - name: essai-serveur
   hosts: localhost
+  become: yes
+  vars:
+    SERVER_PORT=8080
   tasks: 
+    - name: thedossssssier
+      file:
+        path: endroit_serveur
+        state : directory
+
+    - name: thepouybelle
+      file:
+        path: poubelle
+        state : directory
+
     - name: 
-      
+      get_url:
+        url: https://raw.githubusercontent.com/Sarabac/fourreTout/benjamin/server.js
+        dest: endroit_serveur/server.js.j2
+
+    - name: template 
+      template:  
+        src: endroit_serveur/server.js.j2
+        dest: poubelle
