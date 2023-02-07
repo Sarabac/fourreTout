@@ -29,6 +29,6 @@
         state: present 
 
     - name: exe async nodejs
-      command: node server
-        async: 15 
-        poll: 5
+      shell: node server
+      async: 15 
+      poll: 5
