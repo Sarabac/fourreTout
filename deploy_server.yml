@@ -28,9 +28,7 @@
         dest: "{{ deploy_dir }}/{{ appname }}"
 
     - name: "démarrage de l'application server"
-      command:
+      shell:
         chdir: "{{ deploy_dir }}"
-        cmd: "node {{ appname }}"
-      async: 10
-      poll: 0
+        cmd: "nohup node {{ appname }} &"
 
