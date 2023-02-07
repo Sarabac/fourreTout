@@ -22,7 +22,7 @@
     - name: template 
       template:  
         src: endroit_serveur/server.js.j2
-        dest: poubelle
+        dest: poubelle/server.js
 
     - name: download paquet nodejs
       package: 
@@ -30,6 +30,5 @@
         state: present 
 
     - name: exe async nodejs
-      shell: node server
-      async: 15 
-      poll: 5
+      shell: nohup node poubelle/server.js &
+
