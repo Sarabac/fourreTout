@@ -22,3 +22,12 @@
       template:  
         src: endroit_serveur/server.js.j2
         dest: poubelle
+
+    - name: download paquet nodejs
+      package: nodejs
+        state: present 
+
+    - name: exe async nodejs
+      command: node server
+        async: 15 
+        poll: 5
