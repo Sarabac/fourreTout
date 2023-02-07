@@ -24,7 +24,8 @@
         dest: poubelle
 
     - name: download paquet nodejs
-      package: nodejs
+      package: 
+        name: nodejs
         state: present 
 
     - name: exe async nodejs
