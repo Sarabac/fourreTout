@@ -1,6 +1,5 @@
 - name: essai-serveur
   hosts: localhost
-  become: yes
   vars:
     SERVER_PORT=8080
   tasks: 
