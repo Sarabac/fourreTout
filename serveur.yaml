@@ -1,5 +1,7 @@
 - name: essai-serveur
   hosts: localhost
+  vars:
+    SERVER_PORT: 8080
   tasks: 
     - name: thedossssssier
       file:
