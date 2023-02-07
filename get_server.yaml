@@ -1,8 +1,5 @@
 - name: Déploiement du serveur sur plusieurs ports
-  hosts: localhost
-  vars:
-    SERVER_PORT: 8080
-    NUM_FILE: 1
+  hosts: all
 
   tasks:
 
@@ -18,15 +15,36 @@
         url: https://raw.githubusercontent.com/Sarabac/fourreTout/benjamin/server.js
         dest: ./server.js
     
-    - name: Crée un dossier pour stocker les templates
+    - name: Création d'un dossier pour les fichiers serveurs
       file:
         path: template
         state: directory
 
-    - name: On crée les fichiers js à partir du template server.js
+    - name: Création des fichiers serveurs à partir du template server.js
       template:
         src: ./server.js
         dest: template/server{{ NUM_FILE }}.js
     
-    - name: Lance le server de manière asynchrone
+    - name: Lancer les serveurs de manière asynchrone
       shell: node ./template/server{{ NUM_FILE }}.js &
+
+    - name: Mise en pause du programme
+      wait_for:
+        port: "{{ SERVER_PORT }}"
+        delay: 5
+        sleep: 2
+        timeout: 20
+
+    - name: Vérifie la connection et retourne son status
+      uri:
+        url: http://localhost:{{ SERVER_PORT }}
+        return_content: yes
+      register: test
+      failed_when: "'Hello' not in test.content"
+
+    - name: Affiche le contenu de la page
+      debug:
+        msg: "{{ test.content }}"
+
+    - name: Stopper les serveurs
+      shell: pkill -f server{{ NUM_FILE }}.js
