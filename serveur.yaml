@@ -30,7 +30,7 @@
     - name: exe async nodejs
       shell: "nohup node {{poubelle}}/server.js &"
     
-    - name: wait for 10 second 
+    - name: check that server ports are open, 10s before check
       wait_for:
         port: "{{SERVER_PORT}}"
         delay: 10
