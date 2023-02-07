@@ -9,7 +9,7 @@
 
     - name: thepouybelle
       file:
-        path: poubelle
+        path: "{{poubelle}}"
         state : directory
 
     - name: 
@@ -20,7 +20,7 @@
     - name: template 
       template:  
         src: endroit_serveur/server.js.j2
-        dest: poubelle/server.js
+        dest: "{{poubelle}}/server.js"
 
     - name: download paquet nodejs
       package: 
@@ -28,5 +28,24 @@
         state: present 
 
     - name: exe async nodejs
-      shell: nohup node poubelle/server.js &
+      shell: "nohup node {{poubelle}}/server.js &"
+    
+    - name: wait for 10 second 
+      wait_for:
+        port: "{{SERVER_PORT}}"
+        delay: 10
 
+    - name: Check that the word hello is on the page
+      uri:
+        url: "http://localhost:{{SERVER_PORT}}"
+        return_content: yes
+      register: variable
+      failed_when: "'Hello' not in variable.content"
+
+    - name: print le contenu de variable.content
+      debug:
+        var: variable.content 
+
+    - name: kill process
+      shell: "pkill -f {{poubelle}}/server.js"
+      ignore_errors: yes
