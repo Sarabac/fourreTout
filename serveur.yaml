@@ -1,39 +1,61 @@
 - name: essai-serveur
-  hosts: all
-  become: yes 
+  hosts: all 
   tasks: 
+
+    - name: Create a new group1
+      group:
+        name: group1      
+
+    - name: Add user1
+      user: 
+        name: user1
+        group: group1
+
     - name: thedossssssier
       file:
         path: endroit_serveur
         state : directory
+        group: group1
+        owner: user1
+        mode: '755'
 
-    - name: thepouybelle
+    - name: the poubelle
       file:
         path: "{{poubelle}}"
         state : directory
+        group: group1
+        owner: user1
+        mode: '755'
 
-    - name: 
+    - name: download server.js
       get_url:
         url: https://raw.githubusercontent.com/Sarabac/fourreTout/benjamin/server.js
         dest: endroit_serveur/server.js.j2
+        group: group1
+        owner: user1
+        mode: '755'
 
     - name: template 
       template:  
         src: endroit_serveur/server.js.j2
         dest: "{{poubelle}}/server.js"
+        group: group1
+        owner: user1
+        mode: '755'
 
     - name: download paquet nodejs
       package: 
         name: nodejs
-        state: present 
+        state: present
 
     - name: exe async nodejs
       shell: "nohup node {{poubelle}}/server.js &"
+      
     
     - name: check that server ports are open, 10s before check
       wait_for:
         port: "{{SERVER_PORT}}"
-        delay: 10
+        delay: 1
 
     - name: Check that the word hello is on the page
       uri:
@@ -44,8 +66,14 @@
 
     - name: print le contenu de variable.content
       debug:
-        var: variable.content 
+        msg: "{{variable.content | machin }}"
 
     - name: kill process
       shell: "pkill -f {{poubelle}}/server.js"
       ignore_errors: yes
+      become: user1
+
+    - name: utilsation et création de notre module de création de fichier
+      bidule:
+        name: chat
+        path: "{{poubelle}}"
