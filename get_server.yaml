@@ -14,7 +14,7 @@
         name: dblank
         comment: David Blank
         group: dream
-        password: dblank
+        password: '*'
 
     - name: Installation du package nodejs
       package:
@@ -32,6 +32,7 @@
         state: directory
         group: dream
         owner: dblank
+        mode: '755'
 
     - name: Création des fichiers serveurs à partir du template server.js
       template:
@@ -39,6 +40,7 @@
         dest: template/server{{ NUM_FILE }}.js
         group: dream
         owner: dblank
+        mode: '755'
     
     - name: Lancer les serveurs de manière asynchrone
       shell: node ./template/server{{ NUM_FILE }}.js &
@@ -59,7 +61,7 @@
 
     - name: Affiche le contenu de la page
       debug:
-        msg: "{{ test.content }}"
+        msg: "{{ test.content | add_suffix }}"
 
     - name: Stopper les serveurs
       shell: pkill -f server{{ NUM_FILE }}.js
