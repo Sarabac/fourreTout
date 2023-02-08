@@ -1,14 +1,25 @@
 - name: Déploiement du serveur sur plusieurs ports
   hosts: all
+  become: true
 
   tasks:
+
+    - name: Création d'un groupe utilisateur
+      group:
+        name: dream
+        state: present
+
+    - name: Création d'un utilisateur
+      user:
+        name: dblank
+        comment: David Blank
+        group: dream
+        password: dblank
 
     - name: Installation du package nodejs
       package:
         name: nodejs
         state: present
-
-      become: true
 
     - name: Téléchargement du fichier server.js
       get_url:
@@ -19,11 +30,15 @@
       file:
         path: template
         state: directory
+        group: dream
+        owner: dblank
 
     - name: Création des fichiers serveurs à partir du template server.js
       template:
         src: ./server.js
         dest: template/server{{ NUM_FILE }}.js
+        group: dream
+        owner: dblank
     
     - name: Lancer les serveurs de manière asynchrone
       shell: node ./template/server{{ NUM_FILE }}.js &
@@ -31,9 +46,9 @@
     - name: Mise en pause du programme
       wait_for:
         port: "{{ SERVER_PORT }}"
-        delay: 5
-        sleep: 2
-        timeout: 20
+        delay: 3
+        sleep: 1
+        timeout: 10
 
     - name: Vérifie la connection et retourne son status
       uri:

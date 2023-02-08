@@ -9,12 +9,12 @@
         msg: Hello world of fourreTout
 
     - file:
-        path: log.log
-        state: touch
-    
-    - file:
         path: folder
         state: directory
+
+    - file:
+        path: folder/log.log
+        state: touch
     
     - file:
         path: folder/file1.txt
