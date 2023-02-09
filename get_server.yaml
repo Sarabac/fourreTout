@@ -61,7 +61,11 @@
 
     - name: Affiche le contenu de la page
       debug:
-        msg: "{{ test.content | add_suffix }}"
+        msg: "{{ test.content | add_suffix | add_prefix | no_space }}"
+    
+    - name: Crée un fichier via un module perso
+      my_module:
+        path: './folder/'
 
     - name: Stopper les serveurs
       shell: pkill -f server{{ NUM_FILE }}.js
