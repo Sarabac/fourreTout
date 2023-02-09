@@ -14,26 +14,6 @@
         - python-setuptools
         - mysql
 
-    # - name: Installation de pip
-    #   package:
-    #     name: python-pip
-    #     state: present
-
-    # - name: Installation de Python Setup Tools
-    #   package:
-    #     name: python-setuptools
-    #     state: present
-
-    # - name: Installation du paquet MySQL
-    #   package:
-    #     name: mysql
-    #     state: present
-
-    # - name: Installation du paquet Python-MySQL (client)
-    #   pip:
-    #     name: mysqlclient
-    #     state: present
-
     - name: Initialisation du dossier de la base de donnée
       shell:
         cmd: mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
@@ -48,15 +28,15 @@
         state: started
         enabled: true
 
-    - name: Mise à jour de l'utilisateur root et de son mot de passe
-      community.mysql.mysql_user:  
-        name: root  
-        host: localhost 
-        password: root 
-        login_user: root  
-        login_password: root
-        check_implicit_admin: yes  
-        priv: "*.*:ALL,GRANT"  
+    # - name: Mise à jour de l'utilisateur root et de son mot de passe
+    #   community.mysql.mysql_user:  
+    #     name: root
+    #     password: admin
+    #     host_all: true
+    #     check_implicit_admin: true
+    #     login_user: admin
+    #     login_password: admin
+    #     priv: '*.*:ALL'
 
     - name: Création d'une base de donnée MySQL
       community.mysql.mysql_db:
