@@ -39,13 +39,10 @@
     #     priv: '*.*:ALL'
 
     - name: Création d'une base de donnée MySQL
-      community.mysql.mysql_db:
-        name: bdd
-        state: present
+      shell: 
+        cmd: mysql < sql/init.sql
 
-    - name: Création d'un utilisateur
-      community.mysql.mysql_user:
-        name: bob
-        password: bob
-        state: present
+    - name: insert exemple d'une ligne
+      shell:
+        cmd: mysql monitor < sql/insert.sql
 
