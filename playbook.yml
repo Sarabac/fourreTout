@@ -1,0 +1,71 @@
+- name: Création et déploiement d'une base de donnée
+  hosts: localhost
+  become: true
+
+  tasks:
+
+    - name: Installation des paquets
+      package:
+        name: "{{ item }}"
+        state: present
+
+      with_items:
+        - python-pip
+        - python-setuptools
+        - mysql
+
+    # - name: Installation de pip
+    #   package:
+    #     name: python-pip
+    #     state: present
+
+    # - name: Installation de Python Setup Tools
+    #   package:
+    #     name: python-setuptools
+    #     state: present
+
+    # - name: Installation du paquet MySQL
+    #   package:
+    #     name: mysql
+    #     state: present
+
+    # - name: Installation du paquet Python-MySQL (client)
+    #   pip:
+    #     name: mysqlclient
+    #     state: present
+
+    - name: Initialisation du dossier de la base de donnée
+      shell:
+        cmd: mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+
+    - name: Démarrage du service MySQL
+      shell:
+        cmd: systemctl start mysqld
+
+    - name: Vérification de la mise en route de MySQL
+      service:
+        name: mysql
+        state: started
+        enabled: true
+
+    - name: Mise à jour de l'utilisateur root et de son mot de passe
+      community.mysql.mysql_user:  
+        name: root  
+        host: localhost 
+        password: root 
+        login_user: root  
+        login_password: root
+        check_implicit_admin: yes  
+        priv: "*.*:ALL,GRANT"  
+
+    - name: Création d'une base de donnée MySQL
+      community.mysql.mysql_db:
+        name: bdd
+        state: present
+
+    - name: Création d'un utilisateur
+      community.mysql.mysql_user:
+        name: bob
+        password: bob
+        state: present
+
