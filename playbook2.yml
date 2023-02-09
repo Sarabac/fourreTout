@@ -1,0 +1,42 @@
+- name: Création et déploiement d'une base de donnée
+  hosts: localhost
+  become: true
+
+  tasks:
+
+    - name: Installation des paquets
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - python3-pip
+
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Update apt and install docker-ce
+      apt:
+        name: 
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-compose-plugin
+        state: latest
+        update_cache: true
+
+    - name: installation des packets python
+      pip:
+        name:
+          - mysql-connector-python
+        state: present
+
+    - name: launch mysql
+      shell:
+        cmd: "docker compose up -d"
