@@ -1,0 +1,1 @@
+insert into error_date(happened) values (Select now());
