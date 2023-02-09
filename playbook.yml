@@ -29,14 +29,14 @@
         enabled: true
 
     # - name: Mise à jour de l'utilisateur root et de son mot de passe
-    #   community.mysql.mysql_user:  
+    #   community.mysql.mysql_user:
     #     name: root
-    #     password: admin
-    #     host_all: true
+    #     password: root
+    #     login_user: root
+    #     login_password: root
     #     check_implicit_admin: true
-    #     login_user: admin
-    #     login_password: admin
     #     priv: '*.*:ALL'
+
 
     - name: Création d'une base de donnée MySQL
       shell: 
@@ -45,4 +45,7 @@
     - name: insert exemple d'une ligne
       shell:
         cmd: mysql monitor < sql/insert.sql
+
+
+    # Lancement des modules python en processus fils
 
