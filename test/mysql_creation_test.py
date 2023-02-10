@@ -20,4 +20,13 @@ class MysqlTest(unittest.TestCase):
         
         self.assertEqual(dict(connectParam), params)
         self.assertEqual(param2, params)
+    
+    def test_insert_line(self):
+        params = ConnectParam(
+            database="error_db",
+            host="localhost",
+            password="password",
+            user="root"
+        )
         
+        append_error(params)
