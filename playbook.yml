@@ -1,6 +1,8 @@
 - name: Création et déploiement d'une base de donnée
   hosts: localhost
   become: true
+  vars:
+    SERVER_PORT: 3001
 
   tasks:
 
@@ -10,40 +12,31 @@
         state: present
 
       with_items:
-        - python3-pip
-        - python3-setuptools
-        - mariadb-client
+        - python-pip
+        - python-setuptools
+        - mysql
 
-    - name: Initialisation du dossier de la base de donnée
-      shell:
-        cmd: mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+    # - name: Initialisation du dossier de la base de donnée
+    #   shell:
+    #     cmd: mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
 
-    - name: Démarrage du service MySQL
-      shell:
-        cmd: systemctl start mysqld
+    # - name: Démarrage du service MySQL
+    #   shell:
+    #     cmd: systemctl start mysqld
 
-    - name: Vérification de la mise en route de MySQL
-      service:
-        name: mysql
-        state: started
-        enabled: true
+    # - name: Vérification de la mise en route de MySQL
+    #   service:
+    #     name: mysql
+    #     state: started
+    #     enabled: true
 
-    # - name: Mise à jour de l'utilisateur root et de son mot de passe
-    #   community.mysql.mysql_user:
-    #     name: root
-    #     password: root
-    #     login_user: root
-    #     login_password: root
-    #     check_implicit_admin: true
-    #     priv: '*.*:ALL'
+    # - name: Création d'une base de donnée MySQL
+    #   shell: 
+    #     cmd: mysql < sql/init.sql
 
-    - name: Création d'une base de donnée MySQL
-      shell: 
-        cmd: mysql < sql/init.sql
-
-    - name: insert exemple d'une ligne
-      shell:
-        cmd: mysql monitor < sql/insert.sql
+    # - name: insert exemple d'une ligne
+    #   shell:
+    #     cmd: mysql monitor < sql/insert.sql
 
     - name: Création d'un dossier pour les fichiers serveurs
       file:
@@ -53,22 +46,15 @@
     - name: Téléchargement du fichier server.js
       get_url:
         url: https://raw.githubusercontent.com/Sarabac/fourreTout/benjamin/server.js
-        dest: ./template/server.js
+        dest: template/server.js
 
     - name: Création des fichiers serveurs à partir du template server.js
       template:
-        src: ./template/server.js
-        dest: "template/server{{ NUM_FILE }}.js"
-        
+        src: template/server.js
+        dest: template/server1.js
     
     - name: Lancer les serveurs de manière asynchrone
-      shell: node ./template/server{{ NUM_FILE }}.js &
-
-
-    # Lancement des modules python en processus fils
-    # - name: Crée un fichier via un module perso
-    #   my_module:
-    #     path: './folder/'
+      shell: node ./template/server1.js &
 
     - name: exécuter server_gestion.py
-      shell: python3 ./library/server_gestion.py
+      shell: python ./library/server_gestion.py

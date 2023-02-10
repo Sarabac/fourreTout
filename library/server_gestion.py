@@ -1,12 +1,7 @@
-import os, time, subprocess
-import threading, configparser
+import os, time, subprocess, socket
 
-config = configparser.ConfigParser()
-config.read('data.ini')
-
-SERVER_PORT = []
-path = []
-host = config['server1']['host']
+# ==============================
+# fonctions
 
 def check_server(hostname: str) -> bool:
     response = os.system("ping -c 1 " + hostname)
@@ -15,18 +10,30 @@ def check_server(hostname: str) -> bool:
 def start_server(path: str) -> subprocess.Popen:
     return subprocess.Popen(["node", path])
 
-def loop_check(path: str, hostname: str):
+def loop_check(path: str, host: str, SERVER_PORT: str):
     i = 0
     while i < 120:
-        if not check_server(hostname):
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        result = sock.connect_ex((host,SERVER_PORT))
+        if result == 0:
+            print("Success port open :)")
+        else:
+            print("Oups, port not open !")
             start_server(path)
+        sock.close()
 
         time.sleep(1)
         i += 1
 
-for i in range (4):
-    SERVER_PORT.append(config[f"server{i+1}"]['SERVER_PORT'])
-    path.append(config[f"server{i+1}"]['path'])
-    threading.Thread(target=loop_check(path[i], f"{host}:{SERVER_PORT[i]}")).start()
+# ==============================
 
-#print(path)
+
+
+# ==============================
+# main
+
+SERVER_PORT = 3001
+path = "./template/server1.js"
+host = "localhost"
+
+loop_check(path, host, SERVER_PORT)
