@@ -1,4 +1,4 @@
-from library.module.mysql_creation import *
+from library.mysql_creation import *
 import unittest
 
 class MysqlTest(unittest.TestCase):
@@ -29,4 +29,5 @@ class MysqlTest(unittest.TestCase):
             user="root"
         )
         
+        init_schema(params)
         append_error(params)

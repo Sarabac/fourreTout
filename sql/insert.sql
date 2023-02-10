@@ -1,1 +1,1 @@
-insert into error_date(happened) values (now());
+insert into error_date(happened) VALUES(DEFAULT);
