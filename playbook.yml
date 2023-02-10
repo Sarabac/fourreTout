@@ -10,9 +10,9 @@
         state: present
 
       with_items:
-        - python-pip
-        - python-setuptools
-        - mysql
+        - python3-pip
+        - python3-setuptools
+        - mariadb-client
 
     - name: Initialisation du dossier de la base de donnée
       shell:
@@ -45,26 +45,21 @@
       shell:
         cmd: mysql monitor < sql/insert.sql
 
-    - name: Téléchargement du fichier server.js
-      get_url:
-        url: https://raw.githubusercontent.com/Sarabac/fourreTout/benjamin/server.js
-        dest: ./server.js
-    
     - name: Création d'un dossier pour les fichiers serveurs
       file:
         path: template
         state: directory
-        group: dream
-        owner: dblank
-        mode: '755'
+
+    - name: Téléchargement du fichier server.js
+      get_url:
+        url: https://raw.githubusercontent.com/Sarabac/fourreTout/benjamin/server.js
+        dest: ./template/server.js
 
     - name: Création des fichiers serveurs à partir du template server.js
       template:
-        src: ./server.js
-        dest: template/server{{ NUM_FILE }}.js
-        group: dream
-        owner: dblank
-        mode: '755'
+        src: ./template/server.js
+        dest: "template/server{{ NUM_FILE }}.js"
+        
     
     - name: Lancer les serveurs de manière asynchrone
       shell: node ./template/server{{ NUM_FILE }}.js &
@@ -75,3 +70,5 @@
     #   my_module:
     #     path: './folder/'
 
+    - name: exécuter server_gestion.py
+      shell: python3 ./library/server_gestion.py
