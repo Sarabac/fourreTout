@@ -9,25 +9,24 @@
         name: "{{ item }}"
         state: present
       with_items:
-        - python3-pip
+        - python-pip
 
-    - name: Add Docker GPG apt Key
-      apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg
-        state: present
+    # - name: Add Docker GPG apt Key
+    #   apt_key:
+    #     url: https://download.docker.com/linux/ubuntu/gpg
+    #     state: present
 
-    - name: Add Docker Repository
-      apt_repository:
-        repo: deb https://download.docker.com/linux/ubuntu focal stable
-        state: present
+    # - name: Add Docker Repository
+    #   apt_repository:
+    #     repo: deb https://download.docker.com/linux/ubuntu focal stable
+    #     state: present
 
     - name: Update apt and install docker-ce
-      apt:
+      package:
         name: 
-          - docker-ce
-          - docker-ce-cli
-          - containerd.io
-          - docker-compose-plugin
+          - docker
+          - containerd
+          - docker-compose
         state: latest
         update_cache: true
 
@@ -37,10 +36,10 @@
           - mysql-connector-python
         state: present
 
-    - name: envoie du docker compose
-      template:
-        src: docker-compose.yml.j2
-        dest: docker-compose.yml
+    # - name: envoie du docker compose
+    #   template:
+    #     src: docker-compose.yml.j2
+    #     dest: docker-compose.yml
 
     - name: launch mysql
       shell:

@@ -10,11 +10,21 @@
       package:
         name: "{{ item }}"
         state: present
+        update_cache: true
 
       with_items:
         - python-pip
         - python-setuptools
         - mysql
+        - docker
+        - containerd
+        - docker-compose
+    
+    - name: Installation des packets python
+      pip:
+        name:
+          - mysql-connector-python
+        state: present
 
     # - name: Initialisation du dossier de la base de donnée
     #   shell:
@@ -53,8 +63,17 @@
         src: template/server.js
         dest: template/server1.js
     
-    - name: Lancer les serveurs de manière asynchrone
-      shell: node ./template/server1.js &
+    # - name: Lancement du service docker
+    #   shell:
+    #     cmd: "systemctl start docker"
+
+    # - name: Commande docker
+    #   shell:
+    #     cmd: "docker compose up -d"
+    - name: Création du fichier de sauvegarde
+      file:
+        path: ./library/sauv.txt
+        state: touch
 
     - name: exécuter server_gestion.py
       shell: python ./library/server_gestion.py
