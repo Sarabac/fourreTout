@@ -1,6 +1,7 @@
 - name: Pratique de lookup
   gather_facts: no
-  hosts: 10.1.128.15
+  hosts: all
+  # hosts: localhost
   # become: yes
   vars:
     my_env: "{{ lookup('env', 'HOME') }}"
