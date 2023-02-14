@@ -1,0 +1,27 @@
+- name: Pratique de lookup
+  gather_facts: no
+  hosts: localhost
+  become: yes
+  vars:
+    my_env: "{{ lookup('env', 'HOME') }}"
+    my_env2: "{{ lookup('pipe', 'ps') }}"
+    my_file: "{{ lookup('file', './folder/file1.txt') }}"
+    my_pwd: "{{ lookup('password', 'password.secret') }}"
+  
+
+  tasks:
+    - name: Affiche le repertoire home de user
+      debug:
+        msg: "{{ my_env }}"
+      
+    - name: Affiche la sortie d'une commande (ps)
+      debug:
+        msg: "{{ my_env2 }}"
+
+    - name: Lecture d'un fichier
+      debug:
+        msg: "{{ my_file }}"
+
+    - name: Générer un mot de passe
+      debug:
+        msg: "{{ my_pwd }}"

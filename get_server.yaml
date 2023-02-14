@@ -67,5 +67,5 @@
       my_module:
         path: './folder/'
 
-    - name: Stopper les serveurs
-      shell: pkill -f server{{ NUM_FILE }}.js
+    # - name: Stopper les serveurs
+    #   shell: pkill -f server{{ NUM_FILE }}.js
