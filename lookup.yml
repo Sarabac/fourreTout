@@ -1,6 +1,7 @@
 - name: Pratique de lookup
   gather_facts: no
   hosts: all
+
   # hosts: localhost
   # become: yes
   vars:
@@ -36,4 +37,8 @@
       file:
         path: test_jenkins.txt
         state: touch
+
+    - name: Utilise my_module pour créer un fichier
+      my_module:
+        path: "./"
     
