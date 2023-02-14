@@ -1,12 +1,13 @@
 - name: Pratique de lookup
   gather_facts: no
   hosts: localhost
-  become: yes
+  # become: yes
   vars:
     my_env: "{{ lookup('env', 'HOME') }}"
     my_env2: "{{ lookup('pipe', 'ps') }}"
     my_file: "{{ lookup('file', './folder/file1.txt') }}"
     my_pwd: "{{ lookup('password', 'password.secret') }}"
+    my_current_dir: "{{ lookup('pipe', 'pwd') }}"
   
 
   tasks:
@@ -25,3 +26,13 @@
     - name: Générer un mot de passe
       debug:
         msg: "{{ my_pwd }}"
+
+    - name: Affiche le repertoire actuel
+      debug:
+        msg: "{{ my_current_dir }}"
+
+    - name: Créer un fichier dans le répertoire user
+      file:
+        path: test_jenkins.txt
+        state: touch
+    
