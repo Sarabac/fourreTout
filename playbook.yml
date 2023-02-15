@@ -10,21 +10,21 @@
 
     - name: "Créer un dossier pour le projet bety"
       file:
-        path: "~/bety"
+        path: "/home/user/bety"
         state: directory
 
     - name: "Exporter le projet .jar sur le serveur cible"
       copy:
         src: "/home/user/.jenkins/workspace/build_project/target/bety-0.0.1-SNAPSHOT.jar"
-        dest: "~/bety"
+        dest: "/home/user/bety"
 
     - name: "Executer le fichier .jar via la commande java -jar nomfichier.jar"
       shell:
-        cmd: "nohup java -jar ~/bety/bety-0.0.1-SNAPSHOT.jar &"
+        cmd: "nohup java -jar /home/user/bety/bety-0.0.1-SNAPSHOT.jar &"
 
     - name: "Executer le fichier .jar via la commande java -jar nomfichier.jar"
       shell:
-        cmd: "nohup java -jar ~/bety/bety-0.0.1-SNAPSHOT.jar &"
+        cmd: "nohup java -jar /home/user/bety/bety-0.0.1-SNAPSHOT.jar &"
 
     - name: Mise en pause du programme
       wait_for:
