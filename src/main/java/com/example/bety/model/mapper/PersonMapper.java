@@ -2,9 +2,11 @@ package com.example.bety.model.mapper;
 
 import com.example.bety.model.bdd.PersonModel;
 import com.example.bety.model.service.Person;
+import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
+@Component
 public class PersonMapper {
 
     RoleMapper roleMapper;
@@ -18,12 +20,21 @@ public class PersonMapper {
                 personModel.getId(),
                 personModel.getName(),
                 personModel.getFirstname(),
-                personModel.getRoles().stream().map(role -> roleMapper.bdd2Service(role)).collect(Collectors.toList())
+                personModel.getRoles().stream().map(
+                        role -> roleMapper.bdd2Service(role)
+                ).collect(Collectors.toList())
         );
     }
 
     public PersonModel service2Bdd(Person person) {
-        return null;
+        PersonModel personModel = new PersonModel();
+        personModel.setId(person.getId());
+        personModel.setName(person.getName());
+        personModel.setFirstname(person.getFirstname());
+        personModel.setRoles(
+                person.getRoles().stream().map(role -> roleMapper.service2Bdd(role)).collect(Collectors.toList())
+        );
+        return personModel;
 
     }
 }

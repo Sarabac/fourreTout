@@ -3,6 +3,7 @@ package com.example.bety.model.bdd;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,5 +17,5 @@ public class PersonModel {
     private String firstname;
 
     @ManyToMany(mappedBy = "persons")
-    List<RoleModel> roles;
+    List<RoleModel> roles = new ArrayList<>();
 }
