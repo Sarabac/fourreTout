@@ -21,3 +21,21 @@
     - name: "Executer le fichier .jar via la commande java -jar nomfichier.jar"
       shell:
         cmd: "nohup java -jar ~/bety/bety-0.0.1-SNAPSHOT.jar &"
+
+    - name: "Executer le fichier .jar via la commande java -jar nomfichier.jar"
+      shell:
+        cmd: "nohup java -jar ~/bety/bety-0.0.1-SNAPSHOT.jar &"
+
+    - name: Mise en pause du programme
+      wait_for:
+        port: 8080
+        delay: 3
+        sleep: 1
+        timeout: 10
+
+    - name: Vérifie la connection et retourne son status
+      uri:
+        url: http://10.0.2.4:8080
+        return_content: yes
+      register: test
+      failed_when: "'Hello' not in test.content"
