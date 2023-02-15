@@ -15,6 +15,7 @@ public class PersonModel {
     private Long id;
     private String name;
     private String firstname;
+    private String password;
 
     @ManyToMany(mappedBy = "persons")
     List<RoleModel> roles = new ArrayList<>();

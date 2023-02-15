@@ -1,0 +1,1 @@
+ALTER TABLE person ADD password VARCHAR(25);

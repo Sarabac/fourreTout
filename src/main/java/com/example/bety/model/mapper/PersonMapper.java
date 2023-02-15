@@ -20,6 +20,7 @@ public class PersonMapper {
                 personModel.getId(),
                 personModel.getName(),
                 personModel.getFirstname(),
+                personModel.getPassword(),
                 personModel.getRoles().stream().map(
                         rolebdd -> roleMapper.bdd2Service(rolebdd)
                 ).collect(Collectors.toList())
@@ -31,6 +32,7 @@ public class PersonMapper {
         personModel.setId(person.getId());
         personModel.setName(person.getName());
         personModel.setFirstname(person.getFirstname());
+        personModel.setPassword(person.getPassword());
         personModel.setRoles(
                 person.getRoles().stream().map(role -> roleMapper.service2Bdd(role)).collect(Collectors.toList())
         );
