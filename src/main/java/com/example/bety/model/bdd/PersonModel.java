@@ -1,4 +1,4 @@
-package com.example.bety.Model;
+package com.example.bety.model.bdd;
 
 import lombok.Data;
 

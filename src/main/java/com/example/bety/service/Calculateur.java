@@ -1,4 +1,4 @@
-package com.example.bety.Service;
+package com.example.bety.service;
 
 import org.springframework.stereotype.Service;
 

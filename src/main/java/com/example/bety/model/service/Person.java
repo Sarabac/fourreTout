@@ -1,9 +1,8 @@
-package com.example.bety.model;
+package com.example.bety.model.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data

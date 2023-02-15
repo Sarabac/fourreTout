@@ -1,6 +1,6 @@
-package com.example.bety.Service;
+package com.example.bety.service;
 
-import com.example.bety.model.Person;
+import com.example.bety.model.service.Person;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,5 +1,6 @@
-package com.example.bety.Model;
+package com.example.bety.model.bdd;
 
+import com.example.bety.model.bdd.PersonModel;
 import lombok.Data;
 
 import javax.persistence.*;
