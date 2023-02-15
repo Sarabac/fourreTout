@@ -2,8 +2,9 @@
   gather_facts: no
   hosts: all
 
+
   # hosts: localhost
-  # become: yes
+  become: yes
   vars:
     my_env: "{{ lookup('env', 'HOME') }}"
     my_env2: "{{ lookup('pipe', 'ps') }}"
@@ -35,10 +36,10 @@
 
     - name: Créer un fichier dans le répertoire user
       file:
-        path: test_jenkins.txt
+        path: test_jenkins2.txt
         state: touch
 
     - name: Utilise my_module pour créer un fichier
       my_module:
-        path: "./"
+        path: "module_file2.txt"
     

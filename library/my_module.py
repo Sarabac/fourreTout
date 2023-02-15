@@ -11,7 +11,7 @@ def main():
 
   path_local = module.params.get('path')
 
-  new_file = open(path_local+'new_file.txt', 'r')
+  new_file = open(path_local, 'w')
   new_file.close()
 
   module.exit_json(changed=False, msg="OK")  
