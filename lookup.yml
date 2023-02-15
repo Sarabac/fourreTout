@@ -1,6 +1,7 @@
 - name: Pratique de lookup
   gather_facts: no
   hosts: all
+  become: yes
 
 
   # hosts: localhost
@@ -11,7 +12,6 @@
     my_file: "{{ lookup('file', './folder/file1.txt') }}"
     my_pwd: "{{ lookup('password', 'password.secret') }}"
     my_current_dir: "{{ lookup('pipe', 'pwd') }}"
-  
 
   tasks:
     - name: Affiche le repertoire home de user
@@ -42,4 +42,8 @@
     - name: Utilise my_module pour créer un fichier
       my_module:
         path: "module_file2.txt"
-    
+
+    - name: Installation du package nodejs
+      package:
+        name: apt
+        state: latest
