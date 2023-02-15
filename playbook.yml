@@ -1,0 +1,24 @@
+- name: Playbook de test import projet Java
+  hosts: all
+  become: yes
+  tasks:
+
+    - name: "Installer Java sur le serveur cible jdk-11"
+      package:
+        name: openjdk-11-jdk
+        state: present
+
+    - name: "Créer un dossier pour le projet bety"
+      file:
+        path: "bety"
+        state: directory
+
+    - name: "Exporter le projet .jar sur le serveur cible"
+      copy:
+        src: "/home/user/.jenkins/workspace/build_project/target/bety-0.0.1-SNAPSHOT.jar"
+        dest: "bety"
+        remote_src: yes
+
+    - name: "Executer le fichier .jar via la commande java -jar nomfichier.jar"
+      shell:
+        cmd: "nohup java -jar ./bety/bety-0.0.1-SNAPSHOT.jar &"
