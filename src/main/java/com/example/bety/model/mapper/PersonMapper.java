@@ -21,7 +21,7 @@ public class PersonMapper {
                 personModel.getName(),
                 personModel.getFirstname(),
                 personModel.getRoles().stream().map(
-                        role -> roleMapper.bdd2Service(role)
+                        rolebdd -> roleMapper.bdd2Service(rolebdd)
                 ).collect(Collectors.toList())
         );
     }
