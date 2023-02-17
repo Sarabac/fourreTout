@@ -58,4 +58,33 @@ public class PersonService {
         }
         return listPerson;
     }
+
+    public List<Person> showAllPersonsSorted() {
+        Iterable<PersonModel> iPersonModel = personRepo.findAll();
+        List<Person> tListPerson = new ArrayList<>();
+        List<Person> listPerson = new ArrayList<>();
+
+        for (PersonModel p : iPersonModel) {
+            tListPerson.add(personMapper.bdd2Service(p));
+        }
+
+        listPerson.set(0, tListPerson.get(0));
+
+        for (int i = 1; i < tListPerson.size(); ++i) {
+
+            int j = 0;
+
+            do {
+                ++j;
+            } while (tListPerson.get(i).getName().compareTo(listPerson.get(j).getName()) < 0);
+
+            listPerson.set(j, tListPerson.get(i));
+
+        }
+        return listPerson;
+    }
+
+
+
+
 }

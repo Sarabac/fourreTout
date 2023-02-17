@@ -71,6 +71,9 @@ public class PersonController {
         return new ResponseEntity<>(personService.showAllPersons(), HttpStatus.OK);
     }
 
-
+    @GetMapping("/showAllPersonsSorted")
+    public ResponseEntity<List<Person>> showAllPersonsSorted() {
+        return new ResponseEntity<>(personService.showAllPersons(), HttpStatus.OK);
+    }
 }
 
