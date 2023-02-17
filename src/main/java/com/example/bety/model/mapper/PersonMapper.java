@@ -1,5 +1,6 @@
 package com.example.bety.model.mapper;
 
+import com.example.bety.model.MyList;
 import com.example.bety.model.bdd.PersonModel;
 import com.example.bety.model.bdd.RoleModel;
 import com.example.bety.model.service.Person;
@@ -53,7 +54,6 @@ public class PersonMapper {
         personModel.setName(person.getName());
         personModel.setFirstname(person.getFirstname());
         personModel.setPassword(person.getPassword());
-
         final int a = person.getRoles().size();
 
         for (Role role : person.getRoles()) {

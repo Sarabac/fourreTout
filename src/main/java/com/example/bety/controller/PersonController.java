@@ -73,7 +73,12 @@ public class PersonController {
 
     @GetMapping("/showAllPersonsSorted")
     public ResponseEntity<List<Person>> showAllPersonsSorted() {
-        return new ResponseEntity<>(personService.showAllPersons(), HttpStatus.OK);
+        return new ResponseEntity<>(personService.showAllPersonsSorted(), HttpStatus.OK);
+    }
+
+    @GetMapping("/showAllPersonsSortedLite")
+    public ResponseEntity<List<Person>> showAllPersonsSortedLite() {
+        return new ResponseEntity<>(personService.showAllPersonsSortedLite(), HttpStatus.OK);
     }
 }
 

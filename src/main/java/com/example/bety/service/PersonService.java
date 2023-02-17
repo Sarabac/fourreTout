@@ -1,15 +1,15 @@
 package com.example.bety.service;
 
+import antlr.StringUtils;
 import com.example.bety.model.bdd.PersonModel;
 import com.example.bety.model.mapper.PersonMapper;
 import com.example.bety.model.service.Person;
 import com.example.bety.repository.PersonRepo;
+import org.apache.logging.log4j.util.PropertySource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.comparator.Comparators;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PersonService {
@@ -85,6 +85,39 @@ public class PersonService {
     }
 
 
+    public List<Person> showAllPersonsSortedLite() {
+        Iterable<PersonModel> iPersonModel = personRepo.findAll();
+        List<Person> listPerson = new ArrayList<>();
 
+        for (PersonModel p : iPersonModel) {
 
+            listPerson.add(personMapper.bdd2Service(p));
+        }
+
+        listPerson.sort(new PersonComparator());
+
+        return listPerson;
+    }
+
+    private static class PersonComparator implements Comparator<Person> {
+
+        @Override
+        public int compare(Person p1, Person p2) {
+            if (p1 == null && p2 != null)
+                return -1;
+            else if (p1 != null && p2 == null)
+                return 1;
+            else if (p1 == p2)
+                return 0;
+            else {
+                if (p1.getName() != null)
+                    return p1.getName().compareTo(p2.getName());
+                else if (p2.getName() != null)
+                    return 1;
+                else
+                    return 0;
+            }
+
+        }
+    }
 }
