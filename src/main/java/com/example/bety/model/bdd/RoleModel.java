@@ -19,10 +19,7 @@ public class RoleModel {
 
     @ManyToMany(
             fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            }
+            cascade = CascadeType.ALL
     )
     @JoinTable(
             name = "assigned",
