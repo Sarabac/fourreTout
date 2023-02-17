@@ -9,10 +9,15 @@ public class MyList implements List<String> {
     private String[] _data = null;
     private int _size = 0;
 
-    public MyList() {
-        _data = new String[]{};
+    public MyList(int max) {
         _size = 0;
+        _data = new String[max];
     }
+
+    public MyList() {
+        this(10);
+    }
+
 
     @Override
     public int size() {
@@ -53,7 +58,7 @@ public class MyList implements List<String> {
         if (_data.length > _size) {
             _data[_size] = s;
         } else {
-            String[] _tdata = new String[_data.length * 2];
+            String[] _tdata = new String[_data.length * 2 + 10];
 
             for (int i = 0; i < _size; ++i) {
                 _tdata[i] = _data[i];
@@ -61,6 +66,8 @@ public class MyList implements List<String> {
             _tdata[_size] = s;
             _data = _tdata;
         }
+
+        _size = _size+1;
         return true;
     }
 
