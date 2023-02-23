@@ -55,7 +55,7 @@ public class MyList implements List<String> {
     @Override
     public boolean add(String s) {
 
-        if (_data.length > _size) {
+        if (_size < _data.length) {
             _data[_size] = s;
         } else {
             String[] _tdata = new String[_data.length * 2 + 10];
@@ -67,7 +67,7 @@ public class MyList implements List<String> {
             _data = _tdata;
         }
 
-        _size = _size+1;
+        _size = _size + 1;
         return true;
     }
 
@@ -82,15 +82,21 @@ public class MyList implements List<String> {
 
     @Override
     public boolean addAll(int i, Collection<? extends String> collection) {
-        if (_size >= i || i < 0) {
+        if (i < 0 || _size <= i) {
             this.addAll(collection);
         } else {
-            String[] _tdata = new String[_size - i - 1];
-            for (int j = 0; j < _size - i - 1; ++j) {
-                _tdata[j] = _data[i + 1 + j];
+            String[] _tdata = _data;
+            _data = new String[_size + collection.size()];
+
+            for (int j = 0; j < i; ++j) {
+                this.add(_tdata[j]);
             }
+
             this.addAll(collection);
-            this.addAll(List.of(_tdata));
+
+            for (int j = i + collection.size(); j < _data.length; ++j) {
+                this.add(_tdata[j]);
+            }
         }
         return true;
     }
