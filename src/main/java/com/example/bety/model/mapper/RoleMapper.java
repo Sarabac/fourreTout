@@ -4,7 +4,7 @@ import com.example.bety.model.bdd.RoleModel;
 import com.example.bety.model.service.Role;
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class RoleMapper {
     public Role bdd2Service(RoleModel roleModel) {
         return roleModel != null

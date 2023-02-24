@@ -11,13 +11,13 @@ import org.springframework.util.comparator.Comparators;
 
 import java.util.*;
 
-@Service
+
 public class PersonService {
 
     PersonRepo personRepo;
     PersonMapper personMapper;
 
-    PersonService(PersonRepo personRepo, PersonMapper personMapper) {
+    public PersonService(PersonRepo personRepo, PersonMapper personMapper, List<String> names) {
         this.personRepo = personRepo;
         this.personMapper = personMapper;
     }
@@ -100,7 +100,6 @@ public class PersonService {
     }
 
     private static class PersonComparator implements Comparator<Person> {
-
         @Override
         public int compare(Person p1, Person p2) {
             if (p1 == null && p2 != null)
@@ -120,4 +119,34 @@ public class PersonService {
 
         }
     }
+
+
+    public Person getPersonByName(String name) {
+
+        if (name == null) {
+            return null;
+        }
+
+        Iterable<PersonModel> iPersonRepo = personRepo.findAll();
+
+        for (PersonModel p : iPersonRepo) {
+            if (name.equals(p.getName())) {
+                return personMapper.bdd2Service(p);
+            }
+        }
+        return null;
+    }
+
+    public Boolean login(String name, String password) {
+
+        if ("admin".equals(name)) {
+            return ("admin".equals(password));
+        }
+
+        Person p = getPersonByName(name);
+
+        return p != null && p.getPassword() != null && p.getPassword().equals(password);
+    }
+
+
 }

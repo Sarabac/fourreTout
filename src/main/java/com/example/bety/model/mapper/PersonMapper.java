@@ -8,16 +8,17 @@ import com.example.bety.model.service.Role;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+
 public class PersonMapper {
 
     RoleMapper roleMapper;
 
-    PersonMapper(RoleMapper roleMapper) {
+    public PersonMapper(RoleMapper roleMapper) {
         this.roleMapper = roleMapper;
     }
 
@@ -26,7 +27,9 @@ public class PersonMapper {
             return null;
         }
 
+        Base64.Decoder decoder = Base64.getDecoder();
         List<Role> roles = new ArrayList<>();
+
 
         final int a = personModel.getRoles().size();
         for (int i = 0; i < a; ++i) {
@@ -34,11 +37,15 @@ public class PersonMapper {
             roles.add(roleMapper.bdd2Service(personModel.getRoles().get(i)));
         }
 
+
+        String decodedPassword = new String(decoder.decode(personModel.getPassword()));
+
         return new Person(
                 personModel.getId(),
                 personModel.getName(),
                 personModel.getFirstname(),
-                personModel.getPassword(),
+                decodedPassword,
+                //personModel.getPassword(),
                 roles);
     }
 
@@ -47,13 +54,18 @@ public class PersonMapper {
             return null;
         }
 
+        Base64.Encoder encoder = Base64.getEncoder();
         PersonModel personModel = new PersonModel();
         List<RoleModel> roleModels = new ArrayList<>();
+
 
         personModel.setId(person.getId());
         personModel.setName(person.getName());
         personModel.setFirstname(person.getFirstname());
-        personModel.setPassword(person.getPassword());
+
+        String encodedPassword = encoder.encodeToString(person.getPassword().getBytes());
+        personModel.setPassword(encodedPassword);
+
         final int a = person.getRoles().size();
 
         for (Role role : person.getRoles()) {
