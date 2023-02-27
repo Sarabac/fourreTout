@@ -1,0 +1,44 @@
+---
+
+- name: Installation de java (openjdk-11-jdk) sur la machine cible
+  package:
+    name: jre11-openjdk
+    state: present
+  become: yes
+
+- name: Création d'un dossier d'accueil pour le projet java
+  file:
+    path: ~/morpion-game
+    state: directory
+
+- name: Exportation du fichier .sh sur la machine cible
+  copy:
+    src: export/{{ SH_FILE }}
+    dest: ~/morpion-game
+
+- name: Execution du fichier .sh sur la machine cible
+  shell:
+    cmd: ./morpion-game/{{ SH_FILE }}
+
+# - name: Exportation du fichier .jar sur la machine cible
+#   copy:
+#     src: export/{{ JAR_FILE }}
+#     dest: ~/morpion-game
+
+# - name: Execution du fichier .jar sur la machine cible
+#   shell:
+#     cmd: nohup java -jar ~/morpion-game/{{ JAR_FILE }}
+
+# - name: Mise en pause du programme
+#   wait_for:
+#     port: 8080
+#     delay: 3
+#     sleep: 1
+#     timeout: 10
+
+# - name: Vérifie la connection et retourne son status
+#   uri:
+#     url: http://10.0.2.4:8080
+#     return_content: yes
+#   register: test
+#   failed_when: "'Hello' not in test.content"
