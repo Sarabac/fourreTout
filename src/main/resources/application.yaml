@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:annuaire
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+    console.enabled: true
+    console.path: /h2
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+
