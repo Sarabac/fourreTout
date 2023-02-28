@@ -24,8 +24,8 @@ CREATE TABLE IF NOT EXISTS play (
 CREATE TABLE IF NOT EXISTS move (
     id int not null AUTO_INCREMENT primary key,
     play_id int,
-    w int,
-    h int,
+    x int,
+    y int,
     move_time timestamp default now(),
     foreign key (play_id) references play(id)
 );

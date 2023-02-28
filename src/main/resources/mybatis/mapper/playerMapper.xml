@@ -9,4 +9,7 @@
     <select id="findAllPlayer" resultMap="PlayerResultMap">
         SELECT id, name, mark FROM player;
     </select>
+    <select id="findPlayer" resultMap="PlayerResultMap">
+        SELECT id, name, mark FROM player WHERE id=#{playerId};
+    </select>
 </mapper>

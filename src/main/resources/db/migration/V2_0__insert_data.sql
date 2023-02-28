@@ -16,6 +16,6 @@ insert into play(id, player_id, game_id) VALUES (5, 1, 3);
 
 
 
-insert into move(play_id, w, h, move_time) VALUES (1, 0, 0, '2012-09-17 18:47:00');
-insert into move(play_id, w, h, move_time) VALUES (2, 0, 1, '2012-09-17 18:48:00');
+insert into move(play_id, x, y, move_time) VALUES (1, 0, 0, '2012-09-17 18:47:00');
+insert into move(play_id, x, y, move_time) VALUES (2, 0, 1, '2012-09-17 18:48:00');
 

@@ -1,9 +1,73 @@
 package com.yllies.morpion;
 
+import com.yllies.morpion.mapper.GameMapper;
+import com.yllies.morpion.mapper.PlayerMapper;
+import com.yllies.morpion.model.GameMove;
+import com.yllies.morpion.model.Player;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+@Data
+@AllArgsConstructor
+class Direction {
+    private Integer dx;
+    private Integer dy;
+
+    public static List<Direction> getMainDirections() {
+        return Arrays.asList(new Direction(0, 1), new Direction(1, 0), new Direction(1, 1), new Direction(-1, 1));
+    }
+}
 
 @Service
 public class MorpionService {
+
+    GameMapper gameMapper;
+    PlayerMapper playerMapper;
+
+    MorpionService(GameMapper gameMapper, PlayerMapper playerMapper) {
+        this.gameMapper = gameMapper;
+        this.playerMapper = playerMapper;
+    }
+
+    public boolean isGameFinished(Integer gameId) {
+        return gameMapper.countRemaningMoves(gameId).equals(0);
+    }
+
+    public Optional<Player> getWinner(Integer gameId) {
+        return gameMapper.findGame(gameId).flatMap(game -> getWinnerId(game.getLine_lenght(), gameMapper.getGameMoves(game.getId())))
+                .flatMap(playerMapper::findPlayer);
+
+    }
+
+
+    public Optional<Integer> getWinnerId(Integer lineLength, List<GameMove> gameMoves) {
+        return gameMoves
+                .stream()
+                .filter(gameMove -> {
+                    boolean win = false;
+                    for (Direction dir : Direction.getMainDirections()) {
+                        boolean winDirection = true;
+                        // i=1 n'est pas une erreur
+                        for (int i = 1; i < lineLength; i++) {
+                            GameMove hypotheticalMove = new GameMove(
+                                    gameMove.getPlayer_id(),
+                                    gameMove.getX() + i * dir.getDx(),
+                                    gameMove.getY() + i * dir.getDy()
+                            );
+                            winDirection = winDirection & gameMoves.contains(hypotheticalMove);
+                        }
+                        win = win | winDirection;
+                    }
+                    return win;
+                })
+                .map(GameMove::getPlayer_id)
+                .findFirst();
+    }
 
     public String play(Session s, Integer id, Integer x, Integer y) {
         if (id == null) {
