@@ -1,4 +1,4 @@
-package com.yllies.morpion;
+package com.yllies.ultramorpion;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

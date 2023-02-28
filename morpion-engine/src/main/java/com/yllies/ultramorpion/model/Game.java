@@ -1,4 +1,4 @@
-package com.yllies.morpion.model;
+package com.yllies.ultramorpion.model;
 
 import lombok.Data;
 

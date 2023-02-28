@@ -8,6 +8,6 @@
         <typeAlias alias="LinkedHashMap" type="java.util.LinkedHashMap" />
         <typeAlias alias="ArrayList" type="java.util.ArrayList" />
         <typeAlias alias="LinkedList" type="java.util.LinkedList" />
-        <typeAlias type="com.yllies.morpion.model.Player" alias="Player" />
+        <typeAlias type="com.yllies.ultramorpion.model.Player" alias="Player" />
     </typeAliases>
 </configuration>

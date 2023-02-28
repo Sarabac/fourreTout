@@ -11,4 +11,4 @@ mybatis:
      - classpath:mybatis/mybatis-config.xml
    mapper-locations:
      - classpath:mybatis/mapper/*.xml
-   type-aliases-package: com.yllies.morpion.model
+   type-aliases-package: com.yllies.ultramorpion.model

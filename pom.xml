@@ -16,6 +16,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>morpion-engine</module>
+		<module>morpion-model</module>
 		<!--module>morpion-frontend</module-->
 	</modules>
 
