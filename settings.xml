@@ -1,0 +1,17 @@
+<settings>
+	<proxies>
+		<proxy>
+			<id>proxy-edf-http</id>
+			<protocol>http</protocol>
+			<host>pac-ldaps.proxy.edf.fr</host>
+			<port>3128</port>
+		</proxy>
+
+		<proxy>
+			<id>proxy-edf-https</id>
+			<protocol>httpis</protocol>
+			<host>pac-ldaps.proxy.edf.fr</host>
+			<port>3128</port>
+		</proxy>
+	</proxies>
+</settings>
