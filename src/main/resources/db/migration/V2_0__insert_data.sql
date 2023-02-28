@@ -1,12 +1,21 @@
 insert into player VALUES (1, 'alice', 'O');
 insert into player VALUES (2, 'bob', 'X');
+insert into player VALUES (3, 'jack', 'N');
 
-insert into game VALUES (1, 3, 3, 14);
-insert into game VALUES (2, 3, 3, 16);
+insert into game(id) VALUES (1);
+insert into game(id) VALUES (2);
+insert into game(id) VALUES (3);
 
-insert into play VALUES (1, 1, 1);
-insert into play VALUES (2, 2, 1);
+insert into play(id, player_id, game_id) VALUES (1, 1, 1);
+insert into play(id, player_id, game_id) VALUES (2, 2, 1);
 
-insert into move VALUES (1, 1, 0, 0, 0);
-insert into move VALUES (2, 2, 0, 1, 0);
+insert into play(id, player_id, game_id) VALUES (3, 2, 2);
+insert into play(id, player_id, game_id) VALUES (4, 3, 2);
+
+insert into play(id, player_id, game_id) VALUES (5, 1, 3);
+
+
+
+insert into move(play_id, w, h, move_time) VALUES (1, 0, 0, '2012-09-17 18:47:00');
+insert into move(play_id, w, h, move_time) VALUES (2, 0, 1, '2012-09-17 18:48:00');
 
