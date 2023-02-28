@@ -2,34 +2,34 @@
 
 - name: Installation de Java 11 sur la machine cible
   package:
-    name: jre11-openjdk
+    name: "{{ pkg_java }}"
     state: latest
   become: yes
 
 - name: Création d'un dossier d'accueil pour le projet java
   file:
-    path: ~/morpion-game
+    path: "{{ jar_dir }}"
     state: directory
     mode: 0755
 
 - name: Exportation du fichier .sh sur la machine cible
   copy:
-    src: export/{{ SH_FILE }}
-    dest: ~/morpion-game
+    src: "{{ export_dir }}/{{ sh_file }}"
+    dest: "{{ jar_dir }}"
     mode: 0755
 
 - name: Execution du fichier .sh sur la machine cible
   shell:
-    cmd: ./morpion-game/{{ SH_FILE }}
+    cmd: "{{ jar_dir }}/{{ sh_file }}"
 
 # - name: Exportation du fichier .jar sur la machine cible
 #   copy:
-#     src: export/{{ JAR_FILE }}
-#     dest: ~/morpion-game
+#     src: "{{ export_dir }}/{{ jar_file }}"
+#     dest: "{{ jar_dir }}"
 
 # - name: Execution du fichier .jar sur la machine cible
 #   shell:
-#     cmd: nohup java -jar ~/morpion-game/{{ JAR_FILE }}
+#     cmd: nohup java -jar {{ jar_dir }}/{{ jar_file }}
 
 # - name: Mise en pause du programme
 #   wait_for:
