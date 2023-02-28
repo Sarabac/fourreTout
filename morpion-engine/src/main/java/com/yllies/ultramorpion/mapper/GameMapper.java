@@ -1,7 +1,7 @@
 package com.yllies.ultramorpion.mapper;
 
-import com.yllies.ultramorpion.model.Game;
-import com.yllies.ultramorpion.model.GameMove;
+import com.yllies.model.Game;
+import com.yllies.model.GameMove;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.yllies.ultramorpion;
 
 import com.yllies.ultramorpion.mapper.PlayerMapper;
-import com.yllies.ultramorpion.model.Player;
+import com.yllies.model.Player;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

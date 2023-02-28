@@ -8,12 +8,12 @@
         group by g.id
         WHERE id=#{gameId};
     </select>
-    <select id="getGameMoves" resultType="com.yllies.ultramorpion.model.GameMove">
+    <select id="getGameMoves" resultType="com.yllies.model.GameMove">
         select p.player_id as player_id, m.x as x m.y as y from play p
         inner join move m on m.play_id=p.id
         where p.game_id=#{gameId};
     </select>
-    <select id="findGame" resultType="com.yllies.ultramorpion.model.Game">
+    <select id="findGame" resultType="com.yllies.model.Game">
         SELECT * FROM game WHERE id=#{gameId};
     </select>
 </mapper>
