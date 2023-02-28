@@ -1,20 +1,22 @@
 ---
 
-- name: Installation de java (openjdk-11-jdk) sur la machine cible
+- name: Installation de Java 11 sur la machine cible
   package:
     name: jre11-openjdk
-    state: present
+    state: latest
   become: yes
 
 - name: Création d'un dossier d'accueil pour le projet java
   file:
     path: ~/morpion-game
     state: directory
+    mode: 0755
 
 - name: Exportation du fichier .sh sur la machine cible
   copy:
     src: export/{{ SH_FILE }}
     dest: ~/morpion-game
+    mode: 0755
 
 - name: Execution du fichier .sh sur la machine cible
   shell:

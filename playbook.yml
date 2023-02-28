@@ -1,10 +1,11 @@
 ---
-- name: Lancement des tâches du playbook server (role)
+
+- name: Tâches du playbook server (rôle)
   hosts: server
   roles:
     - server
 
-# - name: Lancement des tâches du playbook client (role)
+# - name: Tâches du playbook client (rôle)
 #   hosts: client
 #   roles:
 #     - client

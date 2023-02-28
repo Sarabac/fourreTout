@@ -1,6 +1,6 @@
 ---
 
-- name: Installation de java (openjdk-11-jdk) sur la machine cible
+- name: Installation de Java 11 sur la machine cible
   package:
     name: jre11-openjdk
     state: latest
