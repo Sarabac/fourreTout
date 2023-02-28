@@ -1,0 +1,19 @@
+version: '3.3'
+services:
+  database:
+    image: mariadb
+    container_name: morpiondatabase
+    restart: always
+    environment:
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+      MYSQL_DATABASE: morpion
+      MYSQL_ROOT_PASSWORD: rootpass
+    ports:
+      - 3306:3306
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - 7777:8080
