@@ -3,6 +3,7 @@
 - name: Tâches du playbook server (rôle)
   hosts: server
   roles:
+    - mysql
     - server
 
 - name: Tâches du playbook client (rôle)
