@@ -2,42 +2,51 @@
 
 - name: Arrêt du service de Mariadb
   service:
-    name: mariadb
-    stated: stopped
+    name: "{{ mariadb_service_name }}"
+    state: stopped
     enabled: false
   become: yes
+  ignore_errors: true
+  tags: uninstall
 
 - name: Désinstallation de l'ancien Mariadb
   package:
-    name: "{{ pkg_bdd }}"
+    name: "{{ mariadb_package_name }}"
     state: absent
   become: yes
+  tags: uninstall
 
 - name: Suppresion de l'utilisateur mysql
   user:
-    name: mysql
+    name: "{{ mariadb_user }}"
     state: absent
   become: yes
+  tags: uninstall
+
+- name: "Supression du dossier {{ mariadb_datadir }}"
+  file:
+    path: "{{ mariadb_datadir }}"
+    state: absent
+  become: yes
+  tags: uninstall
 
 - name: Installation de Mariadb
   package:
-    name: "{{ pkg_bdd }}"
+    name: "{{ mariadb_package_name }}"
     state: latest
   become: yes
-
-- name: Supression du dossier /var/lib/mysql
-  shell:
-    cmd: rm -rf /var/lib/mysql
-  become: yes
+  tags: install
 
 - name: Ajout de user dans mysql
   shell:
-    cmd: mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+    cmd: "mariadb-install-db --user={{ mariadb_user }} --basedir=/usr --datadir={{ mariadb_datadir }}"
   become: yes
+  tags: install
 
 - name: Démarrage du service de Mariadb
   service:
-    name: mariadb
-    stated: started
+    name: "{{ mariadb_service_name }}"
+    state: started
     enabled: true
   become: yes
+  tags: install
