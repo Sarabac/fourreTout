@@ -2,25 +2,25 @@
 
 - name: Installation de Java 11
   package:
-    name: "{{ pkg_java }}"
+    name: "{{ java_package_name }}"
     state: latest
   become: yes
 
 - name: Création d'un dossier d'accueil pour les fichiers
   file:
-    path: "{{ jar_dir }}"
+    path: "{{ export_directory }}"
     state: directory
     mode: 0755
 
 - name: Exportation du fichier .jar
   copy:
-    src: "{{ export_dir }}/{{ jar_file }}"
-    dest: "{{ jar_dir }}"
+    src: "{{ java_backend_directory }}/{{ java_backend_file }}"
+    dest: "{{ export_directory }}"
     mode: 0755
 
 - name: Lancement du fichier .jar
   shell:
-    cmd: java -jar {{ jar_dir }}/{{ jar_file }} &
+    cmd: java -jar {{ export_directory}}/{{ java_backend_file}} &
   ignore_errors: true
 
 - name: Vérification de la connection et affichage de son status

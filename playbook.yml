@@ -1,12 +1,17 @@
 ---
 
+- name: Build du projet Java via Maven
+  hosts: local
+  roles:
+    - maven_build
+
 - name: Tâches du playbook server (rôle)
   hosts: server
   roles:
-    - mysql
-#     - server
+    - mariadb
+    - server
 
-# - name: Tâches du playbook client (rôle)
-#   hosts: client
-#   roles:
-#     - client
+- name: Tâches du playbook client (rôle)
+  hosts: client
+  roles:
+    - client

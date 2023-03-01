@@ -1,4 +1,0 @@
-mariadb_package_name: mariadb
-mariadb_datadir: /var/lib/mysql
-mariadb_user: mysql
-mariadb_service_name: mariadb

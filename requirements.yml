@@ -1,0 +1,3 @@
+- src: https://github.com/sarabac/fourretout
+  version: role-mariadb
+  name: mariadb

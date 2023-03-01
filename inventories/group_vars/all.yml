@@ -1,0 +1,15 @@
+ansible_connection: ssh
+
+java_package_name: jre11-openjdk
+
+export_directory: ~/morpion-game
+
+local_clone_directory: ~/morpion-clone
+local_java_project_directory_name: fourretout
+
+java_project_directory: ~/morpion-clone
+java_backend_directory: ~/morpion-clone/fourretout/morpion-engine/target/
+java_backend_file: morpion-engine-0.0.1-SNAPSHOT.jar
+java_model_file: ~/morpion-clone/fourretout/morpion-model/target/morpion-model-0.0.1-SNAPSHOT.jar
+
+sh_test_file: test.sh

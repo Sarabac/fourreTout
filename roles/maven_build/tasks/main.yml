@@ -1,0 +1,23 @@
+
+- name: Création d'un dossier pour accueillir le clone
+  file:
+    path: "{{ local_clone_directory }}"
+    state: directory
+    mode: 0755
+
+- name: Suppression de l'ancien dossier fourretout (branche morpion)
+  file:
+    path: "{{ local_clone_directory }}/{{ local_java_project_directory_name }}"
+    state: absent
+
+- name: Clonage de la branche du projet Java depuis Github
+  git:
+    repo: "{{ repository_git }}"
+    dest: "{{ local_clone_directory }}/{{ local_java_project_directory_name }}"
+    single_branch: yes
+    version: "{{ branch_name }}"
+  
+- name: Build du projet java
+  shell:
+    chdir: "{{ local_clone_directory }}/{{ local_java_project_directory_name }}"
+    cmd: mvn clean install
