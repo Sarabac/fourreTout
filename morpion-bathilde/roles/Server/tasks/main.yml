@@ -1,0 +1,31 @@
+---
+
+- name: installer des paquets
+  become: true 
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+
+  with_items:
+    - jre11-openjdk
+    - maven
+
+- name: créer un répertoire pr le projet morpion (partie server)
+  ansible.builtin.file:
+    path: "{{ dossier_server_morpion }}" 
+    state: directory
+    mode: '0755'
+
+- name: exporter le fichier .sh sur le serveur
+  ansible.builtin.copy :
+    src: /home/bathou/Fourretout/morpion-bathilde/execution.sh
+    dest: "/home/local/{{ dossier_server_morpion }}/morpion_launcher.sh"
+    owner: local
+    mode: '755'
+  
+- name: executer le fichier pour lancer le fichier .jar (sur la machine hote !)
+  ansible.builtin.shell: ./morpion_launcher.sh
+  args:
+    chdir: "/home/local/{{ dossier_server_morpion }}"
+
+      

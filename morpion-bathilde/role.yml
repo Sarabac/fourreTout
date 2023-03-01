@@ -1,0 +1,10 @@
+---   
+- name: role server
+  hosts: Server
+  roles: 
+    - Server
+
+- name: role client
+  hosts: Jeu
+  roles: 
+    - Jeu

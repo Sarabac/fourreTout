@@ -1,0 +1,20 @@
+---
+
+- name: installer des paquets
+  become: true 
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+
+  with_items:
+    - jre11-openjdk
+
+- name: créer un répertoire pr le projet morpion (partie server)
+  ansible.builtin.file:
+    path: "{{ dossier_jeu_morpion }}" 
+    state: directory
+    mode: '0755'
+
+
+
+      
