@@ -1,7 +1,0 @@
-client_port=3001
-ansible_connection=ssh
-pkg_java=jre11-openjdk
-sh_file=test.sh
-jar_file=morpion.jar
-jar_dir=~/morpion-game
-export_dir=export
