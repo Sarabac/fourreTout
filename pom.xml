@@ -8,7 +8,7 @@
 		<version>2.7.8</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.yllies</groupId>
+	<groupId>com.ultramorpion</groupId>
 	<artifactId>ultramorpion</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ultramorpion</name>

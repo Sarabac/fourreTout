@@ -1,9 +1,11 @@
-package com.yllies.ultramorpion;
+package com.ultramorpion.engine;
 
-import com.yllies.ultramorpion.mapper.GameMapper;
-import com.yllies.ultramorpion.mapper.PlayerMapper;
-import com.yllies.model.GameMove;
-import com.yllies.model.Player;
+import com.ultramorpion.engine.mapper.GameMapper;
+import com.ultramorpion.engine.mapper.PlayerMapper;
+import com.ultramorpion.engine.mapper.GameMapper;
+import com.ultramorpion.engine.mapper.PlayerMapper;
+import com.ultramorpion.model.GameMove;
+import com.ultramorpion.model.Player;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.stereotype.Service;

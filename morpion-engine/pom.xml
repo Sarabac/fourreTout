@@ -2,12 +2,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.yllies</groupId>
+        <groupId>com.ultramorpion</groupId>
         <artifactId>ultramorpion</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>com.yllies</groupId>
-    <artifactId>morpion-engine</artifactId>
+    <artifactId>engine</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>morpion-engine</name>
     <description>Demo project for Spring Boot</description>
@@ -17,8 +16,8 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>com.yllies</groupId>
-            <artifactId>morpion-model</artifactId>
+            <groupId>com.ultramorpion</groupId>
+            <artifactId>model</artifactId>
             <version>${project.version}</version>
         </dependency>
 

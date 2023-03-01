@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yllies.ultramorpion.mapper.GameMapper">
+<mapper namespace="com.ultramorpion.engine.mapper.GameMapper">
     <select id="countRemaningMoves" resultType="Integer">
         SELECT g.id as id, ((g.height*g.width)-count(m.id)) as remaining FROM GAME g
         left join play p on p.game_id=g.id
@@ -8,12 +8,12 @@
         group by g.id
         WHERE id=#{gameId};
     </select>
-    <select id="getGameMoves" resultType="com.yllies.model.GameMove">
+    <select id="getGameMoves" resultType="com.ultramorpion.model.GameMove">
         select p.player_id as player_id, m.x as x m.y as y from play p
         inner join move m on m.play_id=p.id
         where p.game_id=#{gameId};
     </select>
-    <select id="findGame" resultType="com.yllies.model.Game">
+    <select id="findGame" resultType="com.ultramorpion.model.Game">
         SELECT * FROM game WHERE id=#{gameId};
     </select>
 </mapper>

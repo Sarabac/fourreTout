@@ -1,6 +1,6 @@
-package com.yllies.ultramorpion.mapper;
+package com.ultramorpion.engine.mapper;
 
-import com.yllies.model.Player;
+import com.ultramorpion.model.Player;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
