@@ -8,8 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("com.ultramorpion.engine.mapper")
 public class MorpionApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MorpionApplication.class, args);
-	}
+	public static void main(String[] args) {SpringApplication.run(MorpionApplication.class, args);}
 
 }
