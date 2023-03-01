@@ -18,10 +18,26 @@
     dest: "{{ export_directory }}"
     mode: 0755
 
+- name: Exportation du fichier (mariadb init)
+  copy:
+    src: files/init-morpion.sql
+    dest: "{{ export_directory }}/init-morpion.sql"
+    mode: 0755
+
+- name: Initialisation de la BDD
+  shell:
+    cmd: "mariadb -u root < {{ export_directory }}/init-morpion.sql"
+  become: yes
+
+- name: Exportation du fichier application.yml
+  template:
+    src: template/application.yml
+    dest: "{{ export_directory }}/application.yml"
+    mode: 0755
+
 - name: Lancement du fichier .jar
   shell:
-    cmd: java -jar {{ export_directory}}/{{ java_backend_file}} &
-  ignore_errors: true
+    cmd: "nohup java -jar {{ export_directory }}/{{ java_backend_file }} --spring.config.location={{ export_directory }}/application.yml &"
 
 - name: Vérification de la connection et affichage de son status
   uri:
