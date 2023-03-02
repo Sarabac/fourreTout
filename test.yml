@@ -1,0 +1,17 @@
+- name: Test git pull sur un directory
+  hosts: localhost
+  tasks:
+
+    # - name: Suppression de l'ancien dossier fourretout (branche morpion)
+    #   file:
+    #     path: "{{ local_clone_directory }}/{{ local_java_project_directory_name }}"
+    #     state: absent
+
+    - name: Clonage de la branche du projet Java depuis Github
+      git:
+        repo: https://github.com/sarabac/fourretout.git
+        dest: ~/git_test_clone
+        single_branch: yes
+        version: nimporte
+        # refspec: '+refs/pull/*:refs/heads/*'
+    
