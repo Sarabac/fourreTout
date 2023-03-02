@@ -16,4 +16,7 @@
     <select id="findGame" resultType="com.ultramorpion.model.Game">
         SELECT * FROM game WHERE id=#{gameId};
     </select>
+    <select id="findGameByPlayId" resultType="com.ultramorpion.model.Game">
+        SELECT * FROM game g Inner join play p On p.game_id=g.id WHERE p.id=#{playId};
+    </select>
 </mapper>

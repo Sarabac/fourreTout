@@ -12,3 +12,6 @@ mybatis:
    mapper-locations:
      - classpath:mybatis/mapper/*.xml
    type-aliases-package: com.ultramorpion.model
+
+server:
+  port: 8080

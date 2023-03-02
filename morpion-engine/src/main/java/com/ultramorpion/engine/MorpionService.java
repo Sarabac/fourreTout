@@ -4,10 +4,12 @@ import com.ultramorpion.engine.mapper.GameMapper;
 import com.ultramorpion.engine.mapper.PlayerMapper;
 import com.ultramorpion.engine.mapper.GameMapper;
 import com.ultramorpion.engine.mapper.PlayerMapper;
+import com.ultramorpion.model.GameCell;
 import com.ultramorpion.model.GameMove;
 import com.ultramorpion.model.Player;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -34,6 +36,16 @@ public class MorpionService {
     MorpionService(GameMapper gameMapper, PlayerMapper playerMapper) {
         this.gameMapper = gameMapper;
         this.playerMapper = playerMapper;
+    }
+
+    public Boolean makeMove(Integer playId, Integer x, Integer y){
+        try{
+            gameMapper.insertMove(playId, x, y);
+        }catch (PersistenceException pe){
+            return false;
+        }
+        return true;
+
     }
 
     public boolean isGameFinished(Integer gameId) {

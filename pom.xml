@@ -6,7 +6,6 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.7.8</version>
-		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ultramorpion</groupId>
 	<artifactId>ultramorpion</artifactId>
@@ -14,6 +13,7 @@
 	<name>ultramorpion</name>
 	<description>Demo project for Spring Boot</description>
 	<packaging>pom</packaging>
+
 	<modules>
 		<module>morpion-engine</module>
 		<module>morpion-model</module>
