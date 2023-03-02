@@ -23,6 +23,10 @@ public interface GameMapper {
     @Select("select mark, x, y from player_move where game_id=(select game_id from play where id=#{playId})")
     List<GameCell> getMoveByPlayId(Integer playId);
 
+    @Select("SELECT m.id FROM move m INNER JOIN play p ON m.play_id=p.id " +
+            "WHERE p.game_id=#{gameId} AND m.x=#{x} AND m.y=#{y}")
+    Optional<Integer> checkMark(Integer gameId, Integer x, Integer y);
+
     @Select("SELECT g.nb_player-COUNT(p.id) FROM game g LEFT JOIN play p ON p.game_id=g.id WHERE g.id=#{gameId} GROUP BY g.id")
     Integer countRemaningPlayer(Integer gameId);
 

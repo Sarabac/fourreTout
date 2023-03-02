@@ -38,11 +38,9 @@ public class MorpionService {
 
     public Boolean makeMove(Integer playId, Integer x, Integer y) {
         Optional<Game> optionalGame = gameMapper.findGameByPlayId(playId);
-        boolean isUnique = gameMapper
-                .getMoveByPlayId(playId)
-                .stream()
-                .filter(gameCell -> gameCell.getY().equals(x) && gameCell.getY().equals(y))
-                .findAny().isEmpty();
+        boolean isUnique = optionalGame
+                .flatMap(game -> gameMapper.checkMark(game.getId(), x, y))
+                .isEmpty();
         boolean isGameFull = optionalGame
                 .map(game -> gameMapper.countRemaningPlayer(game.getId()))
                 .map(integer -> integer.equals(0))
