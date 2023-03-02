@@ -8,7 +8,7 @@
 
   with_items:
     - jre11-openjdk
-    - maven
+    - mariadb
 
 - name: créer un répertoire pr le projet morpion (partie server)
   ansible.builtin.file:
@@ -18,14 +18,40 @@
 
 - name: exporter le fichier .sh sur le serveur
   ansible.builtin.copy :
-    src: /home/bathou/Fourretout/morpion-bathilde/execution.sh
+    src: /home/bathou/Fourretout/morpion-bathilde/morpion_launcher.sh
     dest: "/home/local/{{ dossier_server_morpion }}/morpion_launcher.sh"
     owner: local
     mode: '755'
-  
-- name: executer le fichier pour lancer le fichier .jar (sur la machine hote !)
-  ansible.builtin.shell: ./morpion_launcher.sh
-  args:
-    chdir: "/home/local/{{ dossier_server_morpion }}"
 
-      
+- name: exporter le jeu compilé en jar sur le serveur
+  ansible.builtin.copy :
+    src: "/tmp/morpion/morpion-engine/target/{{ back_morpion_src }}"
+    dest: "/home/local/{{ dossier_server_morpion }}/{{ back_morpion_dest }}"
+    owner: local
+    mode: '755'
+
+- name: exporter le fichier .sql
+  ansible.builtin.copy :
+    src: /home/bathou/Fourretout/morpion-bathilde/roles/Server/files/init-morpion.sql
+    dest: "/home/local/{{ dossier_server_morpion }}/init-morpion.sql"
+    owner: local
+    mode: '755'
+
+- name: exporter le fichier .yaml
+  ansible.builtin.copy :
+    src: /home/bathou/Fourretout/morpion-bathilde/roles/Server/template/application.yaml
+    dest: "/home/local/{{ dossier_server_morpion }}/application.yaml"
+    owner: local
+    mode: '755'
+
+- name: initialiser la bdd 
+  become: yes
+  shell: 
+    cmd: "mariadb -u root < {{ dossier_server_morpion }}/init-morpion.sql"
+
+- name: executer le fichier pour lancer le fichier .jar (sur la machine hote !)
+  ansible.builtin.shell: 
+    cmd: nohup java -jar /home/local/{{ dossier_server_morpion }}/{{ back_morpion_dest }} --spring.config.location={{ dossier_server_morpion }}/application.yaml &
+  
+
+

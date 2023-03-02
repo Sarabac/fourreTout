@@ -2,6 +2,7 @@
 - name: role server
   hosts: Server
   roles: 
+    - mariadb 
     - Server
 
 - name: role client

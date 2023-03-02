@@ -1,1 +1,4 @@
-dossier_server_morpion: server_morpion 
+---
+dossier_server_morpion: dossier_serveur_back_morpion
+back_morpion_src: engine-0.0.1-SNAPSHOT.jar
+back_morpion_dest: back_morpion.jar
