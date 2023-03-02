@@ -2,9 +2,7 @@ package com.ultramorpion.engine;
 
 import com.ultramorpion.engine.mapper.GameMapper;
 import com.ultramorpion.engine.mapper.PlayerMapper;
-import com.ultramorpion.engine.mapper.GameMapper;
-import com.ultramorpion.engine.mapper.PlayerMapper;
-import com.ultramorpion.model.GameCell;
+import com.ultramorpion.model.Game;
 import com.ultramorpion.model.GameMove;
 import com.ultramorpion.model.Player;
 import lombok.AllArgsConstructor;
@@ -38,13 +36,31 @@ public class MorpionService {
         this.playerMapper = playerMapper;
     }
 
-    public Boolean makeMove(Integer playId, Integer x, Integer y){
-        try{
-            gameMapper.insertMove(playId, x, y);
-        }catch (PersistenceException pe){
+    public Boolean makeMove(Integer playId, Integer x, Integer y) {
+        Optional<Game> optionalGame = gameMapper.findGameByPlayId(playId);
+        boolean isUnique = gameMapper
+                .getMoveByPlayId(playId)
+                .stream()
+                .filter(gameCell -> gameCell.getY().equals(x) && gameCell.getY().equals(y))
+                .findAny().isEmpty();
+        boolean isGameFull = optionalGame
+                .map(game -> gameMapper.countRemaningPlayer(game.getId()))
+                .map(integer -> integer.equals(0))
+                .orElse(false);
+        boolean isPlayerTurn = optionalGame
+                .flatMap(game -> gameMapper.nextPlayId(game.getId()))
+                .map(nextId -> nextId.equals(playId))
+                .orElse(false);
+        if (isPlayerTurn && isUnique && isGameFull) {
+            try {
+                gameMapper.insertMove(playId, x, y);
+            } catch (PersistenceException pe) {
+                return false;
+            }
+            return true;
+        } else {
             return false;
         }
-        return true;
 
     }
 
