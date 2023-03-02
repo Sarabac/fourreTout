@@ -1,0 +1,4 @@
+server:
+  port: 8081
+
+morpion-server: "http://localhost:8080"

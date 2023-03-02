@@ -24,14 +24,15 @@ public class GameController {
 
     @GetMapping("/game/play/{play_id}")
     public ModelAndView play(@PathVariable Integer play_id){
-        ModelAndView modelAndView = new ModelAndView("game_board");
-        Game game = gameService.getGameSettings(play_id);
-        List<GameCell> gameCells = gameService.getGameCells(play_id);
-        modelAndView.addObject("cells", game.generateBoard(gameCells));
-        modelAndView.addObject("width", game.getWidth());
-        modelAndView.addObject("height", game.getHeight());
-        modelAndView.addObject("play_id", play_id);
-        return modelAndView;
+        return gameService
+                .getGameSettings(play_id)
+                .map(game -> game.generateBoard(gameService.getGameCells(play_id)))
+                .map(gameCells -> {
+                    ModelAndView modelAndView = new ModelAndView("game_board");
+                    modelAndView.addObject("cells", gameCells);
+                    modelAndView.addObject("play_id", play_id);
+                    return modelAndView;
+                }).orElseGet(() -> new ModelAndView("game_doesnt_exist"));
     }
 
     @GetMapping("/game/move/{play_id}/{x}/{y}")
