@@ -39,6 +39,14 @@
   shell:
     cmd: "nohup java -jar {{ export_directory }}/{{ java_backend_file }} --spring.config.location={{ export_directory }}/application.yml &"
 
+- name: Ecoute du port 8080 (projet java)
+  wait_for:
+    port: "{{ server_port }}"
+    delay: 3
+    sleep: 1
+    timeout: 15
+  ignore_errors: true
+
 - name: Vérification de la connection et affichage de son status
   uri:
     url: http://{{ ansible_host }}:{{ server_port }}/players

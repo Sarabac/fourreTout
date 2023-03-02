@@ -5,10 +5,10 @@
     state: directory
     mode: 0755
 
-- name: Suppression de l'ancien dossier fourretout (branche morpion)
-  file:
-    path: "{{ local_clone_directory }}/{{ local_java_project_directory_name }}"
-    state: absent
+# - name: Suppression de l'ancien dossier fourretout (branche morpion)
+#   file:
+#     path: "{{ local_clone_directory }}/{{ local_java_project_directory_name }}"
+#     state: absent
 
 - name: Clonage de la branche du projet Java depuis Github
   git:
@@ -16,6 +16,7 @@
     dest: "{{ local_clone_directory }}/{{ local_java_project_directory_name }}"
     single_branch: yes
     version: "{{ branch_name }}"
+    refspec: '+refs/pull/*:refs/heads/*'
   
 - name: Build du projet java
   shell:

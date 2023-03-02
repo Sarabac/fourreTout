@@ -5,11 +5,11 @@
   roles:
     - maven_build
 
-- name: Tâches du playbook server (rôle)
-  hosts: server
-  roles:
-    - mariadb
-    - server
+# - name: Tâches du playbook server (rôle)
+#   hosts: server
+#   roles:
+#     - mariadb
+#     - server
 
 # - name: Tâches du playbook client (rôle)
 #   hosts: client
